@@ -1,0 +1,501 @@
+Mplus VERSION 8.3 (Mac)
+MUTHEN & MUTHEN
+06/03/2022   1:33 PM
+
+INPUT INSTRUCTIONS
+
+  TITLE: EFs and IQ
+  DATA: FILE = "cotwins.ef.long.cent.mplus.060322.dat";
+  VARIABLE:
+  NAMES = Family SubjNum bestzygos Block_Design_Raw Block_Design_T Vocab_Raw Vocab_T IQ_T_Su
+       IQ_Composite LabSC LabAS LabKT OL_SC_1 OL_SC_2 OL_SC_3 TotalAccuracy_1
+       TotalAccuracy_2 TotalAccuracy_3 OL_KT_Asin_1 OL_KT_Asin_2 OL_KT_Asin_3
+       cl_Stroop2_1 cl_Stroop2_2 cl_Stroop2_3 cl_Stroop2_4 cl_Stroop2_5 cl_Stroop456_1
+       cl_Stroop456_2 cl_Stroop456_3 cl_Stroop456_4 cl_Stroop456_5 cl_CS_Swi_Rep67_1
+       cl_CS_Swi_Rep67_2 cl_CS_Swi_Rep67_3 cl_CS_Swi_Rep67_4 cl_CS_Swi_Rep67_5
+       cl_KT_Cor_Perc_1 cl_KT_Cor_Perc_2 cl_KT_Cor_Perc_3 cl_KT_Cor_Perc_4
+       cl_KT_Cor_Perc_5 cl_KTasin_1 cl_KTasin_2 cl_KTasin_3 cl_KTasin_4 cl_KTasin_5
+       SVID age_at_lab age_at_olSC1 age_at_olSC2 age_at_olSC3 age_at_olKT1
+       age_at_olKT2 age_at_olKT3 age_at_clStroop_1 age_at_clStroop_2 age_at_clStroop_3
+       age_at_clStroop_4 age_at_clStroop_5 age_at_clSC_1 age_at_clSC_2 age_at_clSC_3
+       age_at_clSC_4 age_at_clSC_5 age_at_clKT_1 age_at_clKT_2 age_at_clKT_3
+       age_at_clKT_4 age_at_clKT_5 sex rLabSC rLabAS rLabKT rOL_SC_1 rOL_SC_2 rOL_SC_3
+       rOL_KT_Asin_1 rOL_KT_Asin_2 rOL_KT_Asin_3 rcl_Stroop456_1 rcl_Stroop456_2
+       rcl_Stroop456_3 rcl_Stroop456_4 rcl_Stroop456_5 rclSC_1 rclSC_2 rclSC_3 rclSC_4
+       rclSC_5 rclKT_Asin_1 rclKT_Asin_2 rclKT_Asin_3 rclKT_Asin_4 rclKT_Asin_5
+       agediff_olSC1 agediff_olSC2 agediff_olSC3 agediff_olKT1 agediff_olKT2
+       agediff_olKT3 agediff_clStroop_1 agediff_clStroop_2 agediff_clStroop_3
+       agediff_clStroop_4 agediff_clStroop_5 agediff_clSC_1 agediff_clSC_2
+       agediff_clSC_3 agediff_clSC_4 agediff_clSC_5 agediff_clKT_1 agediff_clKT_2
+       agediff_clKT_3 agediff_clKT_4 agediff_clKT_5 rBlock_Design_Raw rVocab_Raw Twin
+       P1twin1id P1twin2id P1income P1edu P2income P2edu TwinID zygo;
+  MISSING=.;
+
+  USEVARIABLES ARE
+  rBlock_Design_Raw rVocab_Raw
+  rLabSC rLabAS rLabKT
+  rOL_SC rOL_KT_Asin
+  rclStroop rclSC rclKT_Asin;
+      CLUSTER IS Family;
+
+  DEFINE:
+  ! changing names of cl vars so I don't have to edit the script
+  rLabSC = (-1)*(rLabSC);
+  rOL_SC = (-1)*(rOL_SC_1);
+  rOL_KT_Asin = rOL_KT_Asin_1;
+  rclSC = (-1)*(rclSC_1);
+  rclStroop = (-1)*(rcl_Stroop456_1);
+  rclKT_Asin = rclKT_Asin_1;
+
+  ANALYSIS: TYPE IS COMPLEX;
+  	MODEL = NOCOVARIANCES
+
+  MODEL:
+  EF by rLabSC* rLabAS* rLabKT*;
+  EF by rOL_SC* rOL_KT_Asin* rclStroop* rclSC* rclKT_Asin*;
+
+  SS by rLabSC*;
+  SS by rOL_SC*;
+  SS by rclSC*;
+
+  US by rLabKT*;
+  US by rOL_KT_Asin*;
+  US by rclKT_Asin*;
+
+  EF @ 1;
+  SS@1;
+  US@1;
+
+  IQ by rBlock_Design_Raw* (3)
+  rVocab_Raw* (3);
+  IQ @ 1;
+
+  IQ with EF;
+  IQ with SS;
+  IQ with US;
+
+  OUTPUT: samp stdyx;
+
+
+
+*** WARNING
+  Input line exceeded 90 characters. Some input may be truncated.
+  NAMES = Family SubjNum bestzygos Block_Design_Raw Block_Design_T Vocab_Raw Vocab_T IQ_T_Sum
+*** WARNING in VARIABLE command
+  Note that only the first 8 characters of variable names are used in the output.
+  Shorten variable names to avoid any confusion.
+   2 WARNING(S) FOUND IN THE INPUT INSTRUCTIONS
+
+
+
+EFs and IQ
+
+SUMMARY OF ANALYSIS
+
+Number of groups                                                 1
+Number of observations                                         887
+
+Number of dependent variables                                   10
+Number of independent variables                                  0
+Number of continuous latent variables                            4
+
+Observed dependent variables
+
+  Continuous
+   RBLOCK_DES  RVOCAB_RAW  RLABSC      RLABAS      RLABKT      ROL_SC
+   ROL_KT_ASI  RCLSTROOP   RCLSC       RCLKT_ASIN
+
+Continuous latent variables
+   EF          SS          US          IQ
+
+Variables with special functions
+
+  Cluster variable      FAMILY
+
+Estimator                                                      MLR
+Information matrix                                        OBSERVED
+Maximum number of iterations                                  1000
+Convergence criterion                                    0.500D-04
+Maximum number of steepest descent iterations                   20
+Maximum number of iterations for H1                           2000
+Convergence criterion for H1                             0.100D-03
+
+Input data file(s)
+  cotwins.ef.long.cent.mplus.060322.dat
+
+Input data format  FREE
+
+
+SUMMARY OF DATA
+
+     Number of missing data patterns            35
+     Number of clusters                        444
+
+
+
+COVARIANCE COVERAGE OF DATA
+
+Minimum covariance coverage value   0.100
+
+
+     PROPORTION OF DATA PRESENT
+
+
+           Covariance Coverage
+              RBLOCK_D      RVOCAB_R      RLABSC        RLABAS        RLABKT
+              ________      ________      ________      ________      ________
+ RBLOCK_D       0.998
+ RVOCAB_R       0.997         0.999
+ RLABSC         0.992         0.992         0.993
+ RLABAS         0.982         0.982         0.977         0.983
+ RLABKT         0.998         0.998         0.993         0.983         0.999
+ ROL_SC         0.356         0.356         0.354         0.353         0.356
+ ROL_KT_A       0.405         0.405         0.402         0.400         0.405
+ RCLSTROO       0.472         0.472         0.470         0.466         0.472
+ RCLSC          0.459         0.459         0.457         0.454         0.459
+ RCLKT_AS       0.455         0.455         0.453         0.451         0.455
+
+
+           Covariance Coverage
+              ROL_SC        ROL_KT_A      RCLSTROO      RCLSC         RCLKT_AS
+              ________      ________      ________      ________      ________
+ ROL_SC         0.356
+ ROL_KT_A       0.337         0.405
+ RCLSTROO       0.198         0.223         0.472
+ RCLSC          0.198         0.221         0.441         0.459
+ RCLKT_AS       0.198         0.221         0.439         0.449         0.455
+
+
+SAMPLE STATISTICS
+
+
+     ESTIMATED SAMPLE STATISTICS
+
+
+           Means
+              RBLOCK_D      RVOCAB_R      RLABSC        RLABAS        RLABKT
+              ________      ________      ________      ________      ________
+               -0.003         0.000        -0.002        -0.006        -0.002
+
+
+           Means
+              ROL_SC        ROL_KT_A      RCLSTROO      RCLSC         RCLKT_AS
+              ________      ________      ________      ________      ________
+               -0.038        -0.067        -0.069        -0.044        -0.103
+
+
+           Covariances
+              RBLOCK_D      RVOCAB_R      RLABSC        RLABAS        RLABKT
+              ________      ________      ________      ________      ________
+ RBLOCK_D       1.003
+ RVOCAB_R       0.396         0.999
+ RLABSC         0.055         0.069         1.000
+ RLABAS         0.236         0.157         0.207         1.001
+ RLABKT         0.444         0.423         0.124         0.263         1.003
+ ROL_SC         0.041         0.056         0.406         0.260         0.104
+ ROL_KT_A       0.199         0.142         0.081         0.116         0.340
+ RCLSTROO       0.267         0.152         0.162         0.236         0.129
+ RCLSC          0.041         0.008         0.345         0.161         0.033
+ RCLKT_AS       0.291         0.285         0.073         0.175         0.468
+
+
+           Covariances
+              ROL_SC        ROL_KT_A      RCLSTROO      RCLSC         RCLKT_AS
+              ________      ________      ________      ________      ________
+ ROL_SC         1.014
+ ROL_KT_A       0.062         0.996
+ RCLSTROO       0.193         0.106         1.012
+ RCLSC          0.482         0.007         0.192         0.992
+ RCLKT_AS       0.039         0.482         0.106         0.104         1.044
+
+
+           Correlations
+              RBLOCK_D      RVOCAB_R      RLABSC        RLABAS        RLABKT
+              ________      ________      ________      ________      ________
+ RBLOCK_D       1.000
+ RVOCAB_R       0.396         1.000
+ RLABSC         0.055         0.069         1.000
+ RLABAS         0.235         0.157         0.207         1.000
+ RLABKT         0.442         0.423         0.124         0.263         1.000
+ ROL_SC         0.041         0.056         0.404         0.258         0.103
+ ROL_KT_A       0.199         0.142         0.082         0.116         0.341
+ RCLSTROO       0.266         0.151         0.161         0.234         0.128
+ RCLSC          0.041         0.008         0.346         0.162         0.033
+ RCLKT_AS       0.284         0.279         0.072         0.171         0.458
+
+
+           Correlations
+              ROL_SC        ROL_KT_A      RCLSTROO      RCLSC         RCLKT_AS
+              ________      ________      ________      ________      ________
+ ROL_SC         1.000
+ ROL_KT_A       0.061         1.000
+ RCLSTROO       0.191         0.106         1.000
+ RCLSC          0.480         0.007         0.191         1.000
+ RCLKT_AS       0.037         0.473         0.103         0.102         1.000
+
+
+     MAXIMUM LOG-LIKELIHOOD VALUE FOR THE UNRESTRICTED (H1) MODEL IS -8498.739
+
+
+UNIVARIATE SAMPLE STATISTICS
+
+
+     UNIVARIATE HIGHER-ORDER MOMENT DESCRIPTIVE STATISTICS
+
+         Variable/         Mean/     Skewness/   Minimum/ % with                Percentiles
+        Sample Size      Variance    Kurtosis    Maximum  Min/Max      20%/60%    40%/80%    Median
+
+     RBLOCK_DESIGN_R       0.000      -0.461      -3.216    0.11%      -0.763     -0.132      0.095
+             885.000       0.999      -0.078       2.267    0.11%       0.332      0.879
+     RVOCAB_RAW            0.000      -0.670      -4.589    0.11%      -0.772     -0.131      0.124
+             886.000       0.999       1.043       3.321    0.11%       0.337      0.795
+     RLABSC                0.000      -0.892      -3.287    0.11%      -0.703     -0.067      0.158
+             881.000       0.999       0.898       2.726    0.11%       0.364      0.805
+     RLABAS                0.000      -0.130      -2.537    0.11%      -0.903     -0.150      0.097
+             872.000       0.999      -0.213       2.600    0.11%       0.303      0.795
+     RLABKT                0.000       0.163      -2.804    0.11%      -0.815     -0.287     -0.027
+             886.000       0.999       0.175       3.322    0.11%       0.238      0.845
+     ROL_SC                0.000      -1.079      -3.324    0.32%      -0.646     -0.069      0.191
+             316.000       0.997       0.936       1.605    0.32%       0.386      0.860
+     ROL_KT_ASIN           0.000       0.866      -2.051    0.28%      -0.853     -0.275     -0.145
+             359.000       0.997       1.508       3.696    0.28%       0.101      0.682
+     RCLSTROOP             0.000      -0.304      -2.936    0.24%      -0.905     -0.260      0.123
+             419.000       0.998      -0.395       2.448    0.24%       0.336      0.928
+     RCLSC                 0.000      -0.768      -3.318    0.25%      -0.780     -0.066      0.178
+             407.000       0.998       0.409       1.818    0.25%       0.385      0.890
+     RCLKT_ASIN            0.000       0.090      -2.584    0.25%      -0.897     -0.234      0.048
+             404.000       0.998       0.118       3.403    0.25%       0.283      0.778
+
+
+THE MODEL ESTIMATION TERMINATED NORMALLY
+
+
+
+MODEL FIT INFORMATION
+
+Number of Free Parameters                       38
+
+Loglikelihood
+
+          H0 Value                       -8525.843
+          H0 Scaling Correction Factor      1.2672
+            for MLR
+          H1 Value                       -8498.739
+          H1 Scaling Correction Factor      1.1256
+            for MLR
+
+Information Criteria
+
+          Akaike (AIC)                   17127.687
+          Bayesian (BIC)                 17309.625
+          Sample-Size Adjusted BIC       17188.944
+            (n* = (n + 2) / 24)
+
+Chi-Square Test of Model Fit
+
+          Value                             58.532*
+          Degrees of Freedom                    27
+          P-Value                           0.0004
+          Scaling Correction Factor         0.9261
+            for MLR
+
+*   The chi-square value for MLM, MLMV, MLR, ULSMV, WLSM and WLSMV cannot be used
+    for chi-square difference testing in the regular way.  MLM, MLR and WLSM
+    chi-square difference testing is described on the Mplus website.  MLMV, WLSMV,
+    and ULSMV difference testing is done using the DIFFTEST option.
+
+RMSEA (Root Mean Square Error Of Approximation)
+
+          Estimate                           0.036
+          90 Percent C.I.                    0.023  0.049
+          Probability RMSEA <= .05           0.962
+
+CFI/TLI
+
+          CFI                                0.962
+          TLI                                0.937
+
+Chi-Square Test of Model Fit for the Baseline Model
+
+          Value                            880.344
+          Degrees of Freedom                    45
+          P-Value                           0.0000
+
+SRMR (Standardized Root Mean Square Residual)
+
+          Value                              0.039
+
+
+
+MODEL RESULTS
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ EF       BY
+    RLABSC             0.340      0.053      6.444      0.000
+    RLABAS             0.582      0.077      7.551      0.000
+    RLABKT             0.401      0.056      7.187      0.000
+    ROL_SC             0.398      0.086      4.641      0.000
+    ROL_KT_ASI         0.155      0.085      1.821      0.069
+    RCLSTROOP          0.457      0.082      5.551      0.000
+    RCLSC              0.305      0.082      3.725      0.000
+    RCLKT_ASIN         0.254      0.083      3.068      0.002
+
+ SS       BY
+    RLABSC             0.437      0.069      6.363      0.000
+    ROL_SC             0.645      0.099      6.541      0.000
+    RCLSC              0.549      0.097      5.673      0.000
+
+ US       BY
+    RLABKT             0.695      0.077      9.022      0.000
+    ROL_KT_ASI         0.440      0.101      4.368      0.000
+    RCLKT_ASIN         0.541      0.101      5.341      0.000
+
+ IQ       BY
+    RBLOCK_DES         0.628      0.035     17.782      0.000
+    RVOCAB_RAW         0.628      0.035     17.782      0.000
+
+ IQ       WITH
+    EF                 0.578      0.109      5.286      0.000
+    SS                -0.191      0.097     -1.980      0.048
+    US                 0.628      0.078      8.032      0.000
+
+ Intercepts
+    RBLOCK_DES        -0.003      0.041     -0.071      0.944
+    RVOCAB_RAW         0.000      0.040     -0.004      0.997
+    RLABSC            -0.002      0.038     -0.043      0.966
+    RLABAS            -0.006      0.040     -0.162      0.871
+    RLABKT            -0.002      0.040     -0.053      0.958
+    ROL_SC            -0.047      0.057     -0.810      0.418
+    ROL_KT_ASI        -0.071      0.054     -1.320      0.187
+    RCLSTROOP         -0.071      0.052     -1.373      0.170
+    RCLSC             -0.057      0.053     -1.071      0.284
+    RCLKT_ASIN        -0.109      0.056     -1.935      0.053
+
+ Variances
+    EF                 1.000      0.000    999.000    999.000
+    SS                 1.000      0.000    999.000    999.000
+    US                 1.000      0.000    999.000    999.000
+    IQ                 1.000      0.000    999.000    999.000
+
+ Residual Variances
+    RBLOCK_DES         0.586      0.045     13.113      0.000
+    RVOCAB_RAW         0.624      0.049     12.611      0.000
+    RLABSC             0.693      0.070      9.926      0.000
+    RLABAS             0.663      0.084      7.887      0.000
+    RLABKT             0.359      0.077      4.682      0.000
+    ROL_SC             0.441      0.125      3.541      0.000
+    ROL_KT_ASI         0.786      0.099      7.941      0.000
+    RCLSTROOP          0.802      0.074     10.818      0.000
+    RCLSC              0.600      0.090      6.631      0.000
+    RCLKT_ASIN         0.678      0.113      5.990      0.000
+
+
+STANDARDIZED MODEL RESULTS
+
+
+STDYX Standardization
+
+                                                    Two-Tailed
+                    Estimate       S.E.  Est./S.E.    P-Value
+
+ EF       BY
+    RLABSC             0.340      0.050      6.787      0.000
+    RLABAS             0.582      0.073      7.978      0.000
+    RLABKT             0.400      0.053      7.499      0.000
+    ROL_SC             0.395      0.077      5.165      0.000
+    ROL_KT_ASI         0.154      0.085      1.814      0.070
+    RCLSTROOP          0.454      0.077      5.935      0.000
+    RCLSC              0.306      0.079      3.892      0.000
+    RCLKT_ASIN         0.250      0.080      3.131      0.002
+
+ SS       BY
+    RLABSC             0.437      0.066      6.658      0.000
+    ROL_SC             0.640      0.097      6.585      0.000
+    RCLSC              0.551      0.092      5.987      0.000
+
+ US       BY
+    RLABKT             0.694      0.072      9.644      0.000
+    ROL_KT_ASI         0.440      0.096      4.593      0.000
+    RCLKT_ASIN         0.532      0.101      5.282      0.000
+
+ IQ       BY
+    RBLOCK_DES         0.634      0.030     20.879      0.000
+    RVOCAB_RAW         0.622      0.028     22.256      0.000
+
+ IQ       WITH
+    EF                 0.578      0.109      5.286      0.000
+    SS                -0.191      0.097     -1.980      0.048
+    US                 0.628      0.078      8.032      0.000
+
+ Intercepts
+    RBLOCK_DES        -0.003      0.042     -0.071      0.944
+    RVOCAB_RAW         0.000      0.040     -0.004      0.997
+    RLABSC            -0.002      0.038     -0.043      0.966
+    RLABAS            -0.006      0.039     -0.162      0.871
+    RLABKT            -0.002      0.040     -0.053      0.958
+    ROL_SC            -0.046      0.056     -0.830      0.406
+    ROL_KT_ASI        -0.071      0.055     -1.289      0.197
+    RCLSTROOP         -0.071      0.051     -1.391      0.164
+    RCLSC             -0.057      0.052     -1.097      0.273
+    RCLKT_ASIN        -0.107      0.056     -1.930      0.054
+
+ Variances
+    EF                 1.000      0.000    999.000    999.000
+    SS                 1.000      0.000    999.000    999.000
+    US                 1.000      0.000    999.000    999.000
+    IQ                 1.000      0.000    999.000    999.000
+
+ Residual Variances
+    RBLOCK_DES         0.598      0.039     15.507      0.000
+    RVOCAB_RAW         0.613      0.035     17.607      0.000
+    RLABSC             0.693      0.063     10.981      0.000
+    RLABAS             0.662      0.085      7.801      0.000
+    RLABKT             0.358      0.079      4.540      0.000
+    ROL_SC             0.434      0.117      3.721      0.000
+    ROL_KT_ASI         0.783      0.070     11.109      0.000
+    RCLSTROOP          0.794      0.070     11.410      0.000
+    RCLSC              0.603      0.092      6.559      0.000
+    RCLKT_ASIN         0.655      0.093      7.038      0.000
+
+
+R-SQUARE
+
+    Observed                                        Two-Tailed
+    Variable        Estimate       S.E.  Est./S.E.    P-Value
+
+    RBLOCK_D           0.402      0.039     10.440      0.000
+    RVOCAB_R           0.387      0.035     11.128      0.000
+    RLABSC             0.307      0.063      4.856      0.000
+    RLABAS             0.338      0.085      3.989      0.000
+    RLABKT             0.642      0.079      8.124      0.000
+    ROL_SC             0.566      0.117      4.843      0.000
+    ROL_KT_A           0.217      0.070      3.080      0.002
+    RCLSTROO           0.206      0.070      2.968      0.003
+    RCLSC              0.397      0.092      4.315      0.000
+    RCLKT_AS           0.345      0.093      3.710      0.000
+
+
+QUALITY OF NUMERICAL RESULTS
+
+     Condition Number for the Information Matrix              0.200E-01
+       (ratio of smallest to largest eigenvalue)
+
+
+     Beginning Time:  13:33:17
+        Ending Time:  13:33:18
+       Elapsed Time:  00:00:01
+
+
+
+MUTHEN & MUTHEN
+3463 Stoner Ave.
+Los Angeles, CA  90066
+
+Tel: (310) 391-9971
+Fax: (310) 391-8971
+Web: www.StatModel.com
+Support: Support@StatModel.com
+
+Copyright (c) 1998-2019 Muthen & Muthen
